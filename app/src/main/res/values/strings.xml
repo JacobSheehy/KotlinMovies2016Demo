@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Best2016Movies</string>
+    <string name="show_overview">Show Overview</string>
+    <string name="demo_text_description">Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies.</string>
 </resources>

@@ -1,4 +1,5 @@
 package com.jacobsheehy.best2016movies.presenters
+
 import com.jacobsheehy.best2016movies.interfaces.TMDbService
 import com.jacobsheehy.best2016movies.models.MoviesResponse
 import retrofit2.converter.gson.GsonConverterFactory
@@ -21,6 +22,7 @@ class MoviePresenter {
             val movieResponse = response?.body()
             if(movieResponse!=null) {
                 println("found ${movieResponse.movies.size} movies") // TODO handle this
+
             } else {
                 println("response body null") // TODO handle this
             }

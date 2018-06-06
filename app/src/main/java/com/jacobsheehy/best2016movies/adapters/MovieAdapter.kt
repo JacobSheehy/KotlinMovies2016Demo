@@ -42,15 +42,16 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
 
     inner class MovieViewHolder (view : View) : RecyclerView.ViewHolder(view) {
 
-        val baseImageUrl = "http://image.tmdb.org/t/p/w200"
+        private val baseImageUrl = "http://image.tmdb.org/t/p/w200"
 
         // Show the data contained in this Movie object onto this View
         fun bind(movie : Movie, listener : Listener, position : Int) {
             itemView.textMovieDescription.text=movie.overview
             itemView.textPopularityMetric.text="${movie.popularity.toInt()}"
+            // Use Glide to load (and cache) images
             Glide.with(itemView).load("$baseImageUrl${movie.posterPath}").into(itemView.imageMoviePoster)
             itemView.textMovieTitle.text = movie.filmTitle
-            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US)
+            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US) // fair to assume US locale for now
             itemView.textReleaseDate.text=formatter.format(movie.releaseDate)
             itemView.buttonShowOverview.setOnClickListener{
                 listener.onItemClicked(movie, position, this)
@@ -60,15 +61,14 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
                 false -> { showHiddenUI() }
                 null ->  { showHiddenUI() }
             }
-
         }
 
-        fun showExpandedUI() {
+        private fun showExpandedUI() {
             itemView.textMovieDescription.visibility = View.VISIBLE
             itemView.buttonShowOverview.text=context?.getString(R.string.hide_overview)
         }
 
-        fun showHiddenUI() {
+        private fun showHiddenUI() {
             itemView.textMovieDescription.visibility = View.GONE
             itemView.buttonShowOverview.text=context?.getString(R.string.show_overview)
         }

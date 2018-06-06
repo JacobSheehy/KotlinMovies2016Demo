@@ -18,6 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import android.support.v7.widget.SimpleItemAnimator
+
+
 
 /**
  * Presenter class for the movies list. Hold the dataset (model list) and
@@ -70,6 +73,9 @@ class MoviePresenter : MovieAdapter.Listener {
         recyclerMovies = recyclerView
         loadingMoviesProgressBar = loadingMovies
         loadingMoviesProgressBar?.visibility = View.VISIBLE
+
+        // prevents item flicker on expand operation
+        (recyclerMovies?.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         adapter?.moviePresenter = this
 

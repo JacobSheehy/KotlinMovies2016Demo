@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/textReleaseDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="April 17, 2016"
         app:layout_constraintStart_toEndOf="@id/imageMoviePoster"
@@ -45,12 +45,14 @@
     <Button
         android:id="@+id/buttonShowOverview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:text="@string/show_overview"
         android:background="?attr/selectableItemBackground"
         android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@id/imageMoviePoster"
         app:layout_constraintTop_toBottomOf="@id/textReleaseDate"
+        android:paddingStart="@dimen/small_button_padding"
+        android:paddingEnd="@dimen/small_button_padding"
         android:layout_marginStart="@dimen/item_start_margin"/>
 
     <TextView
@@ -65,7 +67,6 @@
         android:gravity="center_horizontal|center_vertical"
         app:layout_constraintTop_toBottomOf="@id/textReleaseDate"/>
 
-
     <TextView
         android:id="@+id/textMovieDescription"
         android:layout_width="wrap_content"
@@ -78,6 +79,7 @@
         tools:visibility="visible"/>
 
     <View
+        android:id="@+id/viewHr"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#88333333"

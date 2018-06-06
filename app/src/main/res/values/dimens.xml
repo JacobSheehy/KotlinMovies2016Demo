@@ -3,4 +3,5 @@
     <dimen name="text_size_movie_title">18sp</dimen>
     <dimen name="item_start_margin">20dp</dimen>
     <dimen name="item_general_margin">12dp</dimen>
+    <dimen name="poster_width">60dp</dimen>
 </resources>

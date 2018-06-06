@@ -5,6 +5,10 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+/**
+ * Define an interface for retrofit2 for
+ * the API call endpoint of interest (discover/movie)
+ */
 interface TMDbService {
 
     @GET("discover/movie")

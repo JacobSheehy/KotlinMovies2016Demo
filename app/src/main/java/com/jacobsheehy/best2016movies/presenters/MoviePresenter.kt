@@ -2,6 +2,8 @@ package com.jacobsheehy.best2016movies.presenters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.jacobsheehy.best2016movies.InternalConfig
 import com.jacobsheehy.best2016movies.R
@@ -21,12 +23,14 @@ class MoviePresenter : MovieAdapter.Listener {
 
     var allMovies : ArrayList<Movie> = ArrayList()
     var recyclerMovies: RecyclerView? = null
+    var loadingMoviesProgressBar: ProgressBar? = null
     var appContext: Context? = null
     private var adapter: MovieAdapter? = null
 
+
     private val responseCallback = object : Callback<MoviesResponse> {
         override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
-            showErrorToast()
+            showError()
         }
 
         override fun onResponse(call: Call<MoviesResponse>?, response: Response<MoviesResponse>?) {
@@ -35,20 +39,22 @@ class MoviePresenter : MovieAdapter.Listener {
                 allMovies.clear()
                 allMovies.addAll(movieResponse.movies)
                 recyclerMovies?.adapter?.notifyDataSetChanged()
-
+                loadingMoviesProgressBar?.visibility = View.GONE
             } else {
-                showErrorToast()
+                showError()
             }
         }
     }
 
-    fun showErrorToast() {
+    fun showError() {
         Toast.makeText(appContext, appContext?.getString(R.string.load_data_failure),Toast.LENGTH_LONG).show()
+        loadingMoviesProgressBar?.visibility = View.GONE
     }
 
-    fun requestMovies(recyclerView: RecyclerView) {
-
+    fun requestMovies(recyclerView: RecyclerView, loadingMovies: ProgressBar) {
         recyclerMovies = recyclerView
+        loadingMoviesProgressBar = loadingMovies
+        loadingMoviesProgressBar?.visibility = View.VISIBLE
 
         adapter?.moviePresenter = this
 

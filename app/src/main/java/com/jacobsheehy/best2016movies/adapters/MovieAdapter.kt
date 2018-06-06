@@ -11,7 +11,13 @@ import com.jacobsheehy.best2016movies.models.Movie
 import com.jacobsheehy.best2016movies.presenters.MoviePresenter
 import kotlinx.android.synthetic.main.item_movie.view.*
 import java.text.SimpleDateFormat
+import java.util.*
 
+
+/**
+ * This is the data adapter between the raw list of Movie objects and the UI views inside
+ * the RecyclerView
+ */
 class MovieAdapter(private val movieList: List<Movie>, private val listener :Listener, var moviePresenter: MoviePresenter) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     var context: Context? = null
@@ -36,12 +42,15 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
 
     inner class MovieViewHolder (view : View) : RecyclerView.ViewHolder(view) {
 
+        val baseImageUrl = "http://image.tmdb.org/t/p/w200"
+
+        // Show the data contained in this Movie object onto this View
         fun bind(movie : Movie, listener : Listener, position : Int) {
             itemView.textMovieDescription.text=movie.overview
             itemView.textPopularityMetric.text="${movie.popularity.toInt()}"
-            Glide.with(itemView).load("http://image.tmdb.org/t/p/w200${movie.posterPath}").into(itemView.imageMoviePoster)
+            Glide.with(itemView).load("$baseImageUrl${movie.posterPath}").into(itemView.imageMoviePoster)
             itemView.textMovieTitle.text = movie.filmTitle
-            val formatter = SimpleDateFormat("MMM d, yyyy")
+            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US)
             itemView.textReleaseDate.text=formatter.format(movie.releaseDate)
             itemView.buttonShowOverview.setOnClickListener{
                 listener.onItemClicked(movie, position, this)

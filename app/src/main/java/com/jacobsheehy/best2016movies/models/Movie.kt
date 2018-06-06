@@ -3,6 +3,9 @@ package com.jacobsheehy.best2016movies.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+/**
+ * Data class to store information on a single Movie object from the API
+ */
 data class Movie(
         @SerializedName("id") val filmId: Int,
         @SerializedName("title") val filmTitle: String,

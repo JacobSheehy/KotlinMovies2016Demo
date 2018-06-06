@@ -19,15 +19,28 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 
+/**
+ * Presenter class for the movies list. Hold the dataset (model list) and
+ * reference to UI elements like recyclerview for view updates.
+ *
+ */
 class MoviePresenter : MovieAdapter.Listener {
 
+    // Primary data store
     var allMovies : ArrayList<Movie> = ArrayList()
+    // UI and related adapters
     var recyclerMovies: RecyclerView? = null
     var loadingMoviesProgressBar: ProgressBar? = null
-    var appContext: Context? = null
     private var adapter: MovieAdapter? = null
+    // Application context
+    var appContext: Context? = null
 
+    // API constants
+    val apiPage = 1
+    val apiYear = 2016
 
+    // Callback for HTTP calls through retrofit2. Display a toast
+    // on error, and update the RecyclerView on success.
     private val responseCallback = object : Callback<MoviesResponse> {
         override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
             showError()
@@ -51,6 +64,8 @@ class MoviePresenter : MovieAdapter.Listener {
         loadingMoviesProgressBar?.visibility = View.GONE
     }
 
+    // Use Retrofit and GSON to make API calls on the background
+    // and to show data on the UI thread.
     fun requestMovies(recyclerView: RecyclerView, loadingMovies: ProgressBar) {
         recyclerMovies = recyclerView
         loadingMoviesProgressBar = loadingMovies
@@ -74,13 +89,13 @@ class MoviePresenter : MovieAdapter.Listener {
                 "popularity.desc",
                 false,
                 false,
-                1,
-                2016)
+                apiPage,
+                apiYear)
         call.enqueue(responseCallback)
     }
 
+    // Handle click events on the show/hide overview button, update the UI on changes
     override fun onItemClicked(movie: Movie, position: Int, viewHolder: MovieAdapter.MovieViewHolder) {
-        println("onitemclicked ${movie.filmTitle} ${movie.isExpanded}" )
         when(allMovies[position].isExpanded) {
             true ->  { allMovies[position].isExpanded = false }
             false -> { allMovies[position].isExpanded = true }

@@ -37,10 +37,9 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
     inner class MovieViewHolder (view : View) : RecyclerView.ViewHolder(view) {
 
         fun bind(movie : Movie, listener : Listener, position : Int) {
-            println("bind in adapter ${movie.filmTitle}")
             itemView.textMovieDescription.text=movie.overview
             itemView.textPopularityMetric.text="${movie.popularity.toInt()}"
-            Glide.with(itemView).load("http://image.tmdb.org/t/p/w500${movie.posterPath}").into(itemView.imageMoviePoster)
+            Glide.with(itemView).load("http://image.tmdb.org/t/p/w200${movie.posterPath}").into(itemView.imageMoviePoster)
             itemView.textMovieTitle.text = movie.filmTitle
             val formatter = SimpleDateFormat("MMM d, yyyy")
             itemView.textReleaseDate.text=formatter.format(movie.releaseDate)

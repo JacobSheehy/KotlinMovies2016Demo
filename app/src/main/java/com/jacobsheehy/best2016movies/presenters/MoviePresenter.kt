@@ -80,6 +80,6 @@ class MoviePresenter : MovieAdapter.Listener {
             false -> { allMovies[position].isExpanded = true }
             null ->  { allMovies[position].isExpanded = true }
         }
-        recyclerMovies?.adapter?.notifyDataSetChanged()
+        recyclerMovies?.adapter?.notifyItemChanged(position)
     }
 }

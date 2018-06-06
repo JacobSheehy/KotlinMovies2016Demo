@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView
 import com.jacobsheehy.best2016movies.adapters.MovieAdapter
 import com.jacobsheehy.best2016movies.presenters.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v7.widget.SimpleItemAnimator
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,15 +23,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadJSON() {
-        moviePresenter.requestMovies(recyclerMovies, applicationContext)
+        moviePresenter.requestMovies(recyclerMovies)
     }
 
     fun initRecyclerView() {
         recyclerMovies.setHasFixedSize(false)
         val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
         recyclerMovies.layoutManager = layoutManager
-        recyclerMovies.adapter = MovieAdapter(moviePresenter.allMovies, moviePresenter)
-        recyclerMovies.itemAnimator = null
+        recyclerMovies.adapter = MovieAdapter(moviePresenter.allMovies, moviePresenter, moviePresenter)
+
     }
 
 }

@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.jacobsheehy.best2016movies.R
 import com.jacobsheehy.best2016movies.models.Movie
+import com.jacobsheehy.best2016movies.presenters.MoviePresenter
 import kotlinx.android.synthetic.main.item_movie.view.*
 import java.text.SimpleDateFormat
 
-class MovieAdapter(private val movieList: List<Movie>, private val listener :Listener) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter(private val movieList: List<Movie>, private val listener :Listener, var moviePresenter: MoviePresenter) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     var context: Context? = null
 
@@ -35,9 +36,8 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
 
     inner class MovieViewHolder (view : View) : RecyclerView.ViewHolder(view) {
 
-        var isExpanded = false
-
         fun bind(movie : Movie, listener : Listener, position : Int) {
+            println("bind in adapter ${movie.filmTitle}")
             itemView.textMovieDescription.text=movie.overview
             itemView.textPopularityMetric.text="${movie.popularity.toInt()}"
             Glide.with(itemView).load("http://image.tmdb.org/t/p/w500${movie.posterPath}").into(itemView.imageMoviePoster)
@@ -47,25 +47,22 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
             itemView.buttonShowOverview.setOnClickListener{
                 listener.onItemClicked(movie, position, this)
             }
-            if(isExpanded) {
-                expandOverview()
-            } else {
-                hideOverview()
+            when(movie.isExpanded) {
+                true ->  { showExpandedUI() }
+                false -> { showHiddenUI() }
+                null ->  { showHiddenUI() }
             }
 
         }
 
-        fun expandOverview() {
+        fun showExpandedUI() {
             itemView.textMovieDescription.visibility = View.VISIBLE
             itemView.buttonShowOverview.text=context?.getString(R.string.hide_overview)
-            isExpanded = true
-
         }
 
-        fun hideOverview() {
+        fun showHiddenUI() {
             itemView.textMovieDescription.visibility = View.GONE
             itemView.buttonShowOverview.text=context?.getString(R.string.show_overview)
-            isExpanded = false
         }
     }
 

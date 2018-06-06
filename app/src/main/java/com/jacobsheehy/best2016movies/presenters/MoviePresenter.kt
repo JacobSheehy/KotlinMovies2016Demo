@@ -22,8 +22,9 @@ class MoviePresenter : MovieAdapter.Listener {
     var allMovies : ArrayList<Movie> = ArrayList()
     var recyclerMovies: RecyclerView? = null
     var appContext: Context? = null
+    private var adapter: MovieAdapter? = null
 
-    val responseCallback = object : Callback<MoviesResponse> {
+    private val responseCallback = object : Callback<MoviesResponse> {
         override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
             showErrorToast()
         }
@@ -45,9 +46,11 @@ class MoviePresenter : MovieAdapter.Listener {
         Toast.makeText(appContext, appContext?.getString(R.string.load_data_failure),Toast.LENGTH_LONG).show()
     }
 
-    fun requestMovies(recyclerView: RecyclerView, context: Context) {
+    fun requestMovies(recyclerView: RecyclerView) {
 
         recyclerMovies = recyclerView
+
+        adapter?.moviePresenter = this
 
         val client = OkHttpClient()
 
@@ -71,10 +74,12 @@ class MoviePresenter : MovieAdapter.Listener {
     }
 
     override fun onItemClicked(movie: Movie, position: Int, viewHolder: MovieAdapter.MovieViewHolder) {
-        if(viewHolder.isExpanded) {
-            viewHolder.hideOverview()
-        } else {
-            viewHolder.expandOverview()
+        println("onitemclicked ${movie.filmTitle} ${movie.isExpanded}" )
+        when(allMovies[position].isExpanded) {
+            true ->  { allMovies[position].isExpanded = false }
+            false -> { allMovies[position].isExpanded = true }
+            null ->  { allMovies[position].isExpanded = true }
         }
+        recyclerMovies?.adapter?.notifyDataSetChanged()
     }
 }

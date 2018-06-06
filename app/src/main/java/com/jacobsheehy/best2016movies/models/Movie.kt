@@ -9,4 +9,5 @@ data class Movie(
         @SerializedName("popularity") val popularity: Double,
         @SerializedName("poster_path") val posterPath: String,
         @SerializedName("release_date") val releaseDate: Date,
-        @SerializedName("overview") val overview: String)
+        @SerializedName("overview") val overview: String,
+        var isExpanded: Boolean? = false)

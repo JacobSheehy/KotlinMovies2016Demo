@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import com.jacobsheehy.best2016movies.presenters.MoviePresenter
 
 /**
  * Receive Android Intents when the state of the network changes,
@@ -14,17 +15,9 @@ class NetworkStateChangeReceiver : BroadcastReceiver() {
     // Receive intents with information about network state
     override fun onReceive(context: Context, networkStateIntent: Intent) {
         if (networkStateChangeReceiverListener != null) {
-            networkStateChangeReceiverListener!!.onNetworkConnectionChanged(isConnectedOrConnecting(context))
+            networkStateChangeReceiverListener!!.onNetworkConnectionChanged(MoviePresenter.checkConnection(context))
         }
     }
-
-    // Check the connection status to determine if we're online
-    private fun isConnectedOrConnecting(context: Context): Boolean {
-        val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectionManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-    }
-
     // Contract interface for others to use
     interface NetworkStateChangeReceiverListener {
         fun onNetworkConnectionChanged(isConnected: Boolean)

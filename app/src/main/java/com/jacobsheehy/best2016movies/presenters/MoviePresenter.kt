@@ -118,7 +118,6 @@ class MoviePresenter : MovieAdapter.Listener {
         fun checkConnection(context: Context): Boolean {
             val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = connectionManager.activeNetworkInfo
-
             return activeNetwork != null && activeNetwork.isConnectedOrConnecting
         }
     }

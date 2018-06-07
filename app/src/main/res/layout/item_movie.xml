@@ -40,6 +40,7 @@
         app:layout_constraintTop_toTopOf="@id/imageMoviePoster"
         android:layout_marginStart="@dimen/item_start_margin"
         android:layout_marginTop="@dimen/item_general_margin"
+        android:paddingStart="4dp"
         />
 
 

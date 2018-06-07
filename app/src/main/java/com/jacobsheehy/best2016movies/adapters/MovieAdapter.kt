@@ -70,16 +70,19 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
             }
         }
 
+        // Return a String in the correct format for the designs
         private fun getFormattedDate(movie: Movie) : String {
             val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US) // fair to assume US locale for now
             return formatter.format(movie.releaseDate)
         }
 
+        // Expand the overview text
         private fun showExpandedUI() {
             itemView.textMovieDescription.visibility = View.VISIBLE
             itemView.buttonShowOverview.text=context?.getString(R.string.hide_overview)
         }
 
+        // Hide the overview text
         private fun showHiddenUI() {
             itemView.textMovieDescription.visibility = View.GONE
             itemView.buttonShowOverview.text=context?.getString(R.string.show_overview)

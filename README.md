@@ -19,7 +19,7 @@ Testing
 
 This app was tested on a Pixel 2 with Android 8.1.0 (API 27), a Samsung Galaxy S4 with Android 4.2.2 (API 17), and the Android emulators (API 27).
 
-There are not presently any instrumented or unit tests in the app, though they could be added.
+There are not presently any instrumented or unit tests in the app, though they will be added as features expand.
 
 Internationalization and RTL support
 ----------------------------------------------
@@ -32,3 +32,8 @@ Future Expansion
 Future work to add features to the app would likely require using RxJava2 to decouple the presenter and the view further, allowing for more features in the app without growing the complexity.
 
 Next feature addition recommendations would be a dropdown spinner for a year selection, pagination, tapping on the movie poster to see a full version (with Android Shared Element Transition Animations), and other basic info available like director, actors, etc.
+
+Material Design
+---------------
+
+The app is designed to conform to material design, using shadows on elevated elements and meaningful motion in transition animations. Material design features will only partially be available on Android versions below 5.0 / API 21, as shadows would require manual generation of new image assets. 

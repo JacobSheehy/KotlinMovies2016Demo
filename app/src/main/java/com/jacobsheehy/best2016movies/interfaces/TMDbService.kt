@@ -18,6 +18,6 @@ interface TMDbService {
                    @Query("include_adult") includeAdult: Boolean,
                    @Query("include_video") includeVideo: Boolean,
                    @Query("page") page: Int,
-                   @Query("year") year: Int): Call<MoviesResponse>
+                   @Query("primary_release_year") year: Int): Call<MoviesResponse>
 
 }

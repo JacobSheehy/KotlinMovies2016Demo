@@ -97,6 +97,7 @@ class MoviePresenter : MovieAdapter.Listener {
                 false,
                 apiPage,
                 apiYear)
+        println("call ${call.request().url()}")
         call.enqueue(responseCallback)
     }
 

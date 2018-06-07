@@ -13,15 +13,16 @@
         android:layout_height="wrap_content"
         tools:text="Movie title"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="@dimen/text_size_movie_title"
         app:layout_constraintStart_toStartOf="parent"
+        android:textSize="@dimen/text_size_movie_title"
         android:layout_margin="@dimen/item_start_margin"/>
     
     <ImageView
         android:id="@+id/imageMoviePoster"
         android:layout_width="@dimen/poster_width"
         android:layout_height="@dimen/poster_width"
-        tools:src="@mipmap/ic_launcher"
+        tools:src="@drawable/movie_app_icon"
+        android:contentDescription="@string/content_description_movie_poster"
         app:layout_constraintStart_toStartOf="@id/textMovieTitle"
         app:layout_constraintTop_toBottomOf="@id/textMovieTitle"
         android:layout_marginTop="@dimen/item_general_margin"
@@ -82,7 +83,7 @@
         android:id="@+id/viewHr"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#88333333"
+        android:background="@color/grey_line"
         app:layout_constraintTop_toBottomOf="@id/textMovieDescription"
         android:layout_marginTop="@dimen/item_start_margin"
         />

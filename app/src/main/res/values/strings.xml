@@ -4,4 +4,6 @@
     <string name="hide_overview">Hide Overview</string>
     <string name="demo_text_description">Following the events of Age of Ultron, the collective governments of the world pass an act designed to regulate all superhuman activity. This polarizes opinion amongst the Avengers, causing two factions to side with Iron Man or Captain America, which causes an epic battle between former allies.</string>
     <string name="load_data_failure">Unable to load data, please try again</string>
+    <string name="offline_message">Device is offline. Please connect to view movies!</string>
+    <string name="content_description_movie_poster">Movie poster</string>
 </resources>

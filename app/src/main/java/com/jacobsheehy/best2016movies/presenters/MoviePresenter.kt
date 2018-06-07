@@ -1,6 +1,7 @@
 package com.jacobsheehy.best2016movies.presenters
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
@@ -46,7 +47,7 @@ class MoviePresenter : MovieAdapter.Listener {
     // on error, and update the RecyclerView on success.
     private val responseCallback = object : Callback<MoviesResponse> {
         override fun onFailure(call: Call<MoviesResponse>?, t: Throwable?) {
-            showError()
+            handleError()
         }
 
         override fun onResponse(call: Call<MoviesResponse>?, response: Response<MoviesResponse>?) {
@@ -57,13 +58,12 @@ class MoviePresenter : MovieAdapter.Listener {
                 recyclerMovies?.adapter?.notifyDataSetChanged()
                 loadingMoviesProgressBar?.visibility = View.GONE
             } else {
-                showError()
+                handleError()
             }
         }
     }
 
-    fun showError() {
-        Toast.makeText(appContext, appContext?.getString(R.string.load_data_failure),Toast.LENGTH_LONG).show()
+    fun handleError() {
         loadingMoviesProgressBar?.visibility = View.GONE
     }
 
@@ -110,4 +110,17 @@ class MoviePresenter : MovieAdapter.Listener {
         }
         recyclerMovies?.adapter?.notifyItemChanged(position)
     }
+
+
+    companion object {
+        // Check the network connection status immediately, without
+        // waiting for a callback on the main listener
+        fun checkConnection(context: Context): Boolean {
+            val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork = connectionManager.activeNetworkInfo
+
+            return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+        }
+    }
+
 }

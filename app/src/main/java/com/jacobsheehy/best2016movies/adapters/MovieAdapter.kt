@@ -22,24 +22,31 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
 
     var context: Context? = null
 
+    // Create the Movie item view holder and capture the parent context
+    // Context required for use in accessing string resources.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         context = parent.context
         return MovieViewHolder(view)
     }
 
+    // Return the number of items in the list
     override fun getItemCount(): Int {
         return movieList.size
     }
 
+    // Bind a data item to a view holder
     override fun onBindViewHolder(holder:MovieViewHolder, position: Int) {
         holder.bind(movieList[position], listener, position)
     }
 
+    // Contract interface for button clicks on a Show or hide overview button
     interface Listener {
         fun onItemClicked(movie : Movie, position: Int, viewHolder: MovieViewHolder)
     }
 
+
+    // View Holder for Movie objects
     inner class MovieViewHolder (view : View) : RecyclerView.ViewHolder(view) {
 
         private val baseImageUrl = "http://image.tmdb.org/t/p/w200"
@@ -51,16 +58,21 @@ class MovieAdapter(private val movieList: List<Movie>, private val listener :Lis
             // Use Glide to load (and cache) images
             Glide.with(itemView).load("$baseImageUrl${movie.posterPath}").into(itemView.imageMoviePoster)
             itemView.textMovieTitle.text = movie.filmTitle
-            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US) // fair to assume US locale for now
-            itemView.textReleaseDate.text=formatter.format(movie.releaseDate)
+            itemView.textReleaseDate.text = getFormattedDate(movie)
             itemView.buttonShowOverview.setOnClickListener{
                 listener.onItemClicked(movie, position, this)
             }
+
             when(movie.isExpanded) {
                 true ->  { showExpandedUI() }
                 false -> { showHiddenUI() }
                 null ->  { showHiddenUI() }
             }
+        }
+
+        private fun getFormattedDate(movie: Movie) : String {
+            val formatter = SimpleDateFormat("MMM d, yyyy", Locale.US) // fair to assume US locale for now
+            return formatter.format(movie.releaseDate)
         }
 
         private fun showExpandedUI() {
